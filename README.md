@@ -35,6 +35,8 @@ create table user(
 
 数据量10W的插入操作可以执行，但是执行速度不行。
 
+个人笔记本配置为i5-6300HQ 8GB内存
+
 使用Spring Jdbc的JdbcTemplate类中的batchUpdate(String,BatchPreparedStatementSetter)方法插入10W条数据，耗时2314915ms，约39分钟.
 
 使用Spring Jdbc的JdbcTemplate类中的batchUpdate(String,List<Object[]>)方法插入10W条数据，耗时2243696ms，约38分钟.
