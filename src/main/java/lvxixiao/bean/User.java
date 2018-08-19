@@ -1,4 +1,4 @@
-package lvxixiao;
+package lvxixiao.bean;
 
 public class User {
     /*

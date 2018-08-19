@@ -1,10 +1,10 @@
-package lvxixiao;
+package lvxixiao.config;
 
 import java.io.*;
 import java.time.LocalDate;
 
 
-public class Log {
+public class LogConfig {
 
     public static void logConfig(String logPath) throws IOException {
         File file = new File(logPath);

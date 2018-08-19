@@ -1,4 +1,4 @@
-package lvxixiao;
+package lvxixiao.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;

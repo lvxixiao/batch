@@ -1,8 +1,9 @@
 package lvxixiao;
 
+import lvxixiao.bean.User;
+import lvxixiao.util.UserFactory;
 import org.junit.Test;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class TestFactory {

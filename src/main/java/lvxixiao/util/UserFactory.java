@@ -1,9 +1,7 @@
-package lvxixiao;
+package lvxixiao.util;
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import lvxixiao.bean.User;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

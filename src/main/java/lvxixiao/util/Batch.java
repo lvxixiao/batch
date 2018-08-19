@@ -1,11 +1,13 @@
-package lvxixiao;
+package lvxixiao.util;
 
+import lvxixiao.config.JdbcConfig;
+import lvxixiao.bean.User;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Batch {
@@ -72,7 +74,7 @@ public class Batch {
             i--;
         } while(i > 0);
         long endTime = System.currentTimeMillis();
-        System.out.println("插入"+number+"条数据耗时"+(endTime - startTime)+ "ms");
+        System.out.println(LocalDateTime.now()+":插入"+number+"条数据耗时"+(endTime - startTime)+ "ms");
     }
 
 }
