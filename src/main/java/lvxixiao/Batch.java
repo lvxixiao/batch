@@ -10,24 +10,11 @@ import java.util.List;
 
 public class Batch {
 
-    /*
+    private int MaxNumber = 100000;
 
-create table user(
-    name varchar(12) not null,
-    gender tinyint not null,
-    isMarried tinyint not null,
-    age float not null,
-    height float not null,
-    weight float not null,
-    hobby varchar(60) not null,
-    address varchar(60) not null,
-    disHistory varchar(200) not null,
-    habit varchar(200) not null,
-    target varchar(60) not null
-);
-     */
     //这个方法太慢，插入10W条数据用了39分钟.
     //batchUpdate(String,BatchPreparedStatementSetter)，单个PreparedStatement发送多个更新语句。
+    @Deprecated
     public void batchInsert(int number){
         JdbcTemplate template = JdbcConfig.getJdbcTemplate();
 
@@ -67,18 +54,23 @@ create table user(
     }
     //batchUpdate(String,java.util.List<java.lang.Object[]>)使用提供的sql语句和一批提供的参数执行批处理
     public void batchInsert2(int number){
-        JdbcTemplate template = JdbcConfig.getJdbcTemplate();
-
         long startTime = System.currentTimeMillis();
+
+        JdbcTemplate template = JdbcConfig.getJdbcTemplate();
         String insert = "insert into user(name," +
                 "gender,isMarried," +
                 "age,height,weight," +
                 "hobby,address,disHistory,habit,target)" +
                 " values(?,?,?,?,?,?,?,?,?,?,?)";
-
-        List<Object[]> values = UserFactory.produceObject(number);
-
-        template.batchUpdate(insert,values);
+        int i = 0;
+        if(number > MaxNumber)
+            i = number / MaxNumber;
+        //将number按照定义的数量拆分执行插入，避免堆溢出
+        do{
+            List<Object[]> values = UserFactory.produceObject(MaxNumber);
+            //template.batchUpdate(insert,values);
+            i--;
+        } while(i > 0);
         long endTime = System.currentTimeMillis();
         System.out.println("插入"+number+"条数据耗时"+(endTime - startTime)+ "ms");
     }

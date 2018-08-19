@@ -35,7 +35,7 @@ create table user(
 
 数据量10W的插入操作可以执行，但是执行速度不行。
 
-个人笔记本配置为i5-6300HQ 8GB内存
+个人笔记本配置为i5-6300HQ 8GB内存 1T机械硬盘。运行时观察任务管理器，推测程序运行的瓶颈在机械硬盘的写入速度(800KB/秒)。
 
 使用Spring Jdbc的JdbcTemplate类中的batchUpdate(String,BatchPreparedStatementSetter)方法插入10W条数据，耗时2314915ms，约39分钟.
 
@@ -45,7 +45,9 @@ create table user(
 
 数据量100W的插入操作会引发堆内存溢出，可以将100W的操作拆分成10W进行，1000W的数据量同理。
 
-未能将性能报告输出到文件中，考虑到需要到linux中运行，于是打算打开classpath中的log文件，将字符串写入文件，但是方法执行成功后字符串没有写入文件，原因未知。
+未能将性能报告输出到文件中，考虑到需要到linux中运行，于是打算打开classpath中的log文件，将字符串写入文件，但是方法执行成功后字符串没有写入文件。
+
+原因在于性能报告写入log文件后，该log文件在out路径中，src里的log文件并不会被修改。另外，classpath中的文件，每次Build都会被覆盖。
 
 存储空间性能报告，目前思路是记录每个创建的User对象(String属性字符串总长度 * 2 + float属性 * 4)占用byte的总和。
 
