@@ -70,7 +70,7 @@ public class Batch {
         //将number按照定义的数量拆分执行插入，避免堆溢出
         do{
             List<Object[]> values = UserFactory.produceObject(MaxNumber);
-            //template.batchUpdate(insert,values);
+            template.batchUpdate(insert,values);
             i--;
         } while(i > 0);
         long endTime = System.currentTimeMillis();

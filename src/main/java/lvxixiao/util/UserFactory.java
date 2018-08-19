@@ -2,6 +2,7 @@ package lvxixiao.util;
 
 import lvxixiao.bean.User;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -71,7 +72,8 @@ public class UserFactory {
         long startTime = System.currentTimeMillis();
         if(number > 1000000)
             throw new RuntimeException("超过100万的数量容易造成堆内存溢出");
-
+        //记录数据占用的字节数
+        long memory = 0L;
         List<Object[]> users = new ArrayList<Object[]>(number);
         //将User对象的属性写入Object[]中
         for(int i = 0 ; i < number ; i++){
@@ -115,11 +117,13 @@ public class UserFactory {
             user[8] = disHistory;
             user[9] = habit;
             user[10] = target;
-
             users.add(user);
+            //计算占用字节数 字符串总长度 * 2 + 3 个 float占用内存 + 2 个 boolean占用内存
+            memory = memory + (nameSize + hobbySize + addressSize + hisSize + habitSize + targetSize) * 2L + 3L * 4L + 2L * 1L;
         }
         long endTime = System.currentTimeMillis();
-        System.out.println("随机生成"+number+"条数据耗时"+(endTime - startTime)+ "ms");
+        System.out.println(LocalDateTime.now()+":随机生成"+number+"条数据占用"+memory+"字节的内存");
+        System.out.println(LocalDateTime.now()+":随机生成"+number+"条数据耗时"+(endTime - startTime)+ "ms");
         return users;
     }
 
