@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class Log {
 
-    public void logConfig(String logPath) throws IOException {
+    public static void logConfig(String logPath) throws IOException {
         File file = new File(logPath);
         if(!file.exists())
             throw new RuntimeException("文件路径不存在");
