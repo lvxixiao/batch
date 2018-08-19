@@ -1,18 +1,22 @@
 package lvxixiao;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.time.LocalDate;
+
 
 public class Log {
 
-    public void log() throws IOException {
-        String logPath = UserFactory.class.getClassLoader().getResource("log").getPath();
-        PrintWriter log = new PrintWriter(new FileWriter(logPath));
-        log.println("测试写入");
-        log.flush();
-        log.close();
+    public void logConfig(String logPath) throws IOException {
+        File file = new File(logPath);
+        if(!file.exists())
+            throw new RuntimeException("文件路径不存在");
+        //如果路径是目录，则根据日期在此目录下创建文件
+        if(file.isDirectory()){
+          String newLogPath = file.getPath() + "/" + LocalDate.now();
+          file = new File(newLogPath);
+        }
+        PrintStream ps = new PrintStream(file,"UTF-8");
+        //设置System.out输出到文件
+        System.setOut(ps);
     }
-
 }

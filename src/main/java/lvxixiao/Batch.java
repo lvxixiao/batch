@@ -15,7 +15,7 @@ public class Batch {
     //这个方法太慢，插入10W条数据用了39分钟.
     //batchUpdate(String,BatchPreparedStatementSetter)，单个PreparedStatement发送多个更新语句。
     @Deprecated
-    public void batchInsert(int number){
+    public void batchInsert2(int number){
         JdbcTemplate template = JdbcConfig.getJdbcTemplate();
 
         long startTime = System.currentTimeMillis();
@@ -53,7 +53,7 @@ public class Batch {
         System.out.println("插入"+number+"条数据耗时"+(endTime - startTime)+ "ms");
     }
     //batchUpdate(String,java.util.List<java.lang.Object[]>)使用提供的sql语句和一批提供的参数执行批处理
-    public void batchInsert2(int number){
+    public void batchInsert(int number){
         long startTime = System.currentTimeMillis();
 
         JdbcTemplate template = JdbcConfig.getJdbcTemplate();

@@ -8,6 +8,6 @@ public class TestLog {
     @Test
     public void TestLog() throws IOException {
         Log log = new Log();
-        log.log();
+        log.logConfig("D:/workspace/batch/log");
     }
 }
