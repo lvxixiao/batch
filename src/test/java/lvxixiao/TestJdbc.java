@@ -12,6 +12,6 @@ public class TestJdbc {
     public void testFind() throws IOException {
         LogConfig.logConfig("D:/workspace/batch/log");
         Batch batch = new Batch();
-        batch.batchInsert(1000000);
+        batch.batchInsert(90000);
     }
 }

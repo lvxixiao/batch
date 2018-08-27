@@ -32,7 +32,12 @@ public class User {
     public User() {
     }
 
-    public User(String name, boolean gender, boolean isMarried,float age ,float height, float weight, String hobby, String address, String disHistory, String habit, String target) {
+    public User(float height, float weight) {
+        this.height = height;
+        this.weight = weight;
+    }
+
+    public User(String name, boolean gender, boolean isMarried, float age , float height, float weight, String hobby, String address, String disHistory, String habit, String target) {
         this.name = name;
         this.gender = gender;
         this.isMarried = isMarried;
@@ -137,17 +142,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
-                ", gender=" + gender +
-                ", isMarried=" + isMarried +
+                "name="+name+
                 ", age=" + age +
+                ", gender=" + gender +
                 ", height=" + height +
                 ", weight=" + weight +
-                ", hobby='" + hobby + '\'' +
-                ", address='" + address + '\'' +
-                ", disHistory='" + disHistory + '\'' +
-                ", habit='" + habit + '\'' +
-                ", target='" + target + '\'' +
                 '}';
     }
 }

@@ -1,9 +1,14 @@
 package lvxixiao;
 
+import lvxixiao.bean.User;
+import lvxixiao.config.JdbcConfig;
 import lvxixiao.config.LogConfig;
 import lvxixiao.util.Batch;
+import lvxixiao.util.Similarity;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Main {
 
@@ -15,5 +20,8 @@ public class Main {
         LogConfig.logConfig(args[0]);
         Batch batch = new Batch();
         batch.batchInsert(Integer.parseInt(args[1]));
+        //检索10条年龄、性别、身高、体重最接近的10条数据
+        Similarity sim = new Similarity();
+        sim.similarity();
     }
 }
