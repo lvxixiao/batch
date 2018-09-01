@@ -26,16 +26,17 @@ public class Similarity {
   }
 
   private double similarity(int age, boolean gender, double maxSumSim, List<User> simUser) {
-    JdbcTemplate template =JdbcConfig.getJdbcTemplate();
+
     // 按年龄和性别检索数据，数据按身高体重降序排列
+    JdbcTemplate template =JdbcConfig.getJdbcTemplate();
     String sql = "select name,round(age) as age, gender, round(height) as height,round(weight) as"
         + " weight from user where round(age) = ? and gender = ? order by round(height) desc, "
         + "round(weight) desc";
     Object[] args = new Object[2];
     args[1] = gender;
-
     for(int i = age ; i < 101 ; i++){
       args[0] = i;
+      long sqlStartTime = System.currentTimeMillis();
       List<User> users = template.query(sql, args, new RowMapper<User>() {
 
         @Override
@@ -49,16 +50,17 @@ public class Similarity {
           return user;
         }
       });
-      // 计算相似度
-      Map<Double,List<User>> map = similarity(users);
+      long sqlEndTime = System.currentTimeMillis();
+      System.out.println("查询耗时" + (sqlStartTime - sqlEndTime) + "ms");
 
+      long simStartTime = System.currentTimeMillis();
+      Map<Double,List<User>> map = similarity(users); // 计算相似度
       Set<Map.Entry<Double, List<User>>> set = map.entrySet();
       Iterator<Map.Entry<Double, List<User>>> it = set.iterator();
       if(it.hasNext()){
         Map.Entry<Double, List<User>> entry = it.next();
         double sumSim = entry.getKey();
-        // 相似度比较
-        if(maxSumSim < sumSim) {
+        if(maxSumSim < sumSim) { // 相似度比较
           maxSumSim = sumSim;
           //清空原来的数据
           simUser.clear();
@@ -66,6 +68,8 @@ public class Similarity {
           simUser.addAll(entry.getValue());
         }
       }
+      long simEndTime = System.currentTimeMillis();
+      System.out.println("相似度计算耗时" + (simStartTime - simEndTime) + "ms");
     }
     return maxSumSim;
   }
